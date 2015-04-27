@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>kafka-metrics</artifactId>
+    <name>Kafka metric set</name>
+    <groupId>com.turn.kafka.metrics</groupId>
+    <version>1.0</version>
+
+    <packaging>jar</packaging>
+    <description>
+        A set of classes which exposes Kafka's metrics to allow you to tailor them to your reporting mechanism.
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.yammer.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.8.2.0</version>
+        </dependency>
+    </dependencies>
+</project>
