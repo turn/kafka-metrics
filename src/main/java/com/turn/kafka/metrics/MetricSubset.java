@@ -27,7 +27,7 @@ import java.util.*;
  * @author Adam Lugowski <adam.lugowski@turn.com>
  */
 public abstract class MetricSubset {
-	private List<MetricInfo> metrics = new ArrayList<MetricInfo>();
+	private List<MetricInfo> metrics = Collections.synchronizedList(new ArrayList<MetricInfo>());
 
 	/**
 	 * Membership test for a Kafka metric.
@@ -37,12 +37,7 @@ public abstract class MetricSubset {
 	 * {@code false} otherwise.
 	 */
 	public boolean containsMetric(MetricName originalName) {
-		for (MetricInfo mi : metrics) {
-			if (mi.equals(originalName))
-				return true;
-		}
-
-		return false;
+		return metrics.contains(originalName);
 	}
 
 	protected MetricInfo addMetric(Metric originalMetric, MetricName originalName) {
@@ -82,12 +77,14 @@ public abstract class MetricSubset {
 	}
 
 	protected MetricInfo removeMetric(MetricName originalName) {
-		Iterator<MetricInfo> iter = metrics.iterator();
-		while (iter.hasNext()) {
-			MetricInfo mi = iter.next();
-			if (mi.getOriginalName().equals(originalName)) {
-				iter.remove();
-				return mi;
+		synchronized (metrics) {
+			Iterator<MetricInfo> iter = metrics.iterator();
+			while (iter.hasNext()) {
+				MetricInfo mi = iter.next();
+				if (mi.getOriginalName().equals(originalName)) {
+					iter.remove();
+					return mi;
+				}
 			}
 		}
 		return null;

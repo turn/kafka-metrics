@@ -23,6 +23,7 @@ import com.yammer.metrics.core.MetricsRegistry;
 import com.yammer.metrics.core.MetricsRegistryListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ import java.util.Map;
  */
 public class KafkaClientMetricSet extends MetricSubset {
 
-	List<KafkaMetricsListener> listeners = new ArrayList<KafkaMetricsListener>();
+	List<KafkaMetricsListener> listeners = Collections.synchronizedList(new ArrayList<KafkaMetricsListener>());
 
 	private MetricsRegistryListener metricsRegistryListener = new MetricsRegistryListener() {
 		/**
@@ -56,8 +57,10 @@ public class KafkaClientMetricSet extends MetricSubset {
 
 			MetricInfo mi = process(metric, metricName);
 			if (mi != null) {
-				for (KafkaMetricsListener listener : listeners) {
-					listener.onKafkaMetricAdded(mi);
+				synchronized (listeners) {
+					for (KafkaMetricsListener listener : listeners) {
+						listener.onKafkaMetricAdded(mi);
+					}
 				}
 			} else {
 				// metric not recognized
@@ -86,8 +89,10 @@ public class KafkaClientMetricSet extends MetricSubset {
 
 			MetricInfo mi = removeMetric(metricName);
 			if (mi != null) {
-				for (KafkaMetricsListener listener : listeners) {
-					listener.onKafkaMetricRemoved(mi);
+				synchronized (listeners) {
+					for (KafkaMetricsListener listener : listeners) {
+						listener.onKafkaMetricRemoved(mi);
+					}
 				}
 			}
 		}

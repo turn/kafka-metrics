@@ -5,12 +5,17 @@
     <artifactId>kafka-metrics</artifactId>
     <name>Kafka metric set</name>
     <groupId>com.turn.kafka.metrics</groupId>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <packaging>jar</packaging>
     <description>
         A set of classes which exposes Kafka's metrics to allow you to tailor them to your reporting mechanism.
     </description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
