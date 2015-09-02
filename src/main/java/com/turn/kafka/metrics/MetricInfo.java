@@ -77,7 +77,7 @@ public class MetricInfo {
 		if(keyValue.length % 2 != 0) {
 			throw new IllegalArgumentException("keyValue needs to be specified in pairs");
 		} else {
-			for(int i = 0; i < keyValue.length / 2; ++i) {
+			for(int i = 0; i < keyValue.length; i += 2) {
 				ret.put(keyValue[i], keyValue[i + 1]);
 			}
 		}
