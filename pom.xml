@@ -15,11 +15,19 @@
 			<url>http://maven.turn.com/content/repositories/turn</url>
 		</repository>
 	</repositories>
-	<parent>
-		<groupId>com.turn</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.0.0</version>
-	</parent>
+	<distributionManagement>
+		<repository>
+			<id>turn</id>
+			<url>http://maven.turn.com/content/repositories/turn</url>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>snapshots</id>
+			<name>Turn internal Maven repository for snapshots</name>
+			<url>http://maven.turn.com/content/repositories/snapshots</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
